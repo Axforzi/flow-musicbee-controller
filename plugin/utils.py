@@ -77,8 +77,6 @@ def musicbee_command(action):
             command.append("/Previous")
         elif action == "stop":
             command.append("/Stop")
-        elif action == "show":
-            command.append("/Show")
             
         subprocess.Popen(command)
         

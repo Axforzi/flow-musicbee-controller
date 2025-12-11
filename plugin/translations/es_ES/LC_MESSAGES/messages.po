@@ -225,3 +225,10 @@ msgstr "ACTIVADO"
 
 msgid "OFF"
 msgstr "DESACTIVADO"
+
+# Show Quick Command
+msgid "Show MusicBee"
+msgstr "Mostrar MusicBee"
+
+msgid "Bring MusicBee to front"
+msgstr "Traer MusicBee al frente"

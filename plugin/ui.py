@@ -150,6 +150,43 @@ class Main(FlowLauncher):
                     "dontHideAfterAction": False
                 }
             }]
+        
+        # Quick Commands (Symbols)
+        # > or >> : Next
+        if clean_query in [">", ">>", "next", "n"]:
+            return [{
+                "Title": _l("Next"),
+                "SubTitle": _l("Next song"),
+                "IcoPath": NEXT_ICON,
+                "JsonRPCAction": {"method": "musicbee_command", "parameters": ["next"], "dontHideAfterAction": False}
+            }]
+        
+        # < or << : Previous
+        if clean_query in ["<", "<<", "prev", "previous", "p"]:
+            return [{
+                "Title": _l("Previous"),
+                "SubTitle": _l("Previous song"),
+                "IcoPath": PREVIOUS_ICON,
+                "JsonRPCAction": {"method": "musicbee_command", "parameters": ["prev"], "dontHideAfterAction": False}
+            }]
+            
+        # || or !! : Play/Pause
+        if clean_query in ["||", "!!", "pp", "play", "pause"]:
+            return [{
+                 "Title": _l("Play/Pause"),
+                 "SubTitle": _l("Play/Pause song"),
+                 "IcoPath": PLAY_ICON,
+                 "JsonRPCAction": {"method": "musicbee_command", "parameters": ["toggle"], "dontHideAfterAction": False}
+            }]
+            
+        # . or stop : Stop
+        if clean_query in [".", "stop", "s"]:
+            return [{
+                 "Title": _l("Stop"),
+                 "SubTitle": _l("Stop song"),
+                 "IcoPath": STOP_ICON,
+                 "JsonRPCAction": {"method": "musicbee_command", "parameters": ["stop"], "dontHideAfterAction": False}
+            }]
 
         # Check if MusicBee path is configured
         if not MB_PATH or not os.path.exists(MB_PATH):
