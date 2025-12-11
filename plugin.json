@@ -1,0 +1,12 @@
+{
+    "ID": "223865a6-3f16-403f-9180-70ec3061602c",
+    "ActionKeyword": "test",
+    "Name": "MusicBee Controller",
+    "Description": "Instantly search and control MusicBee.",
+    "Author": "Maikel García",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/Axforzi/flow-musicbee-controller",
+    "IcoPath": "assets/favicon.png",
+    "ExecuteFileName": "main.py"
+}

@@ -1,0 +1,227 @@
+# Spanish (Spain) translations for Gemini Plugin.
+# Copyright (C) 2024
+# This file is distributed under the same license as the Gemini Plugin project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-08 16:00+0000\n"
+"PO-Revision-Date: 2024-12-08 16:00+0000\n"
+"Last-Translator: \n"
+"Language: es_ES\n"
+"Language-Team: Spanish\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Manual\n"
+
+# API Key configuration
+msgid "Configure API Key"
+msgstr "Configurar API Key"
+
+msgid "Paste your key here: {} setkey AIzaSy..."
+msgstr "Pega tu clave aquí: {} setkey AIzaSy..."
+
+msgid "Save Key: {}..."
+msgstr "Guardar Key: {}..."
+
+msgid "Press Enter to confirm and save."
+msgstr "Presiona Enter para confirmar y guardar."
+
+# Model selection
+msgid " (Current)"
+msgstr " (Actual)"
+
+msgid "Fast and lightweight (Recommended)"
+msgstr "Rápido y ligero (Recomendado)"
+
+msgid "Better balance between quality and speed"
+msgstr "Mejor equilibrio entre calidad y velocidad"
+
+msgid "Smarter with better reasoning (Slow)"
+msgstr "Más inteligente y mejor razonamiento (Lento)"
+
+# Validation messages
+msgid "⚠️ Missing Google API Key"
+msgstr "⚠️ Falta la API Key de Google"
+
+msgid "Press Enter to write the configuration command"
+msgstr "Presiona Enter para escribir el comando de configuración"
+
+msgid "⚠️ Select a model"
+msgstr "⚠️ Selecciona un modelo"
+
+msgid "Press Enter to see the list of models"
+msgstr "Presiona Enter para ver la lista de modelos"
+
+# Query prompts
+msgid "Ask Gemini"
+msgstr "Pregunta a Gemini"
+
+msgid "Write your query with || at the end to get the response..."
+msgstr "Escribe tu consulta con || al final para obtener la respuesta..."
+
+# API response
+msgid "Copy to Clipboard"
+msgstr "Copiar al portapapeles"
+
+msgid "Open in Notepad"
+msgstr "Abrir en el Bloc de Notas"
+
+msgid "See the full response in Notepad"
+msgstr "Ver toda la respuesta en el Bloc de Notas"
+
+# Error messages
+msgid "Error"
+msgstr "Error"
+
+msgid "Error opening notepad: {}"
+msgstr "Error al abrir bloc de notas: {}"
+
+# MusicBee path configuration
+msgid "Browse for MusicBee.exe"
+msgstr "Buscar MusicBee.exe"
+
+msgid "Open file browser to select MusicBee executable"
+msgstr "Abrir explorador de archivos para seleccionar el ejecutable de MusicBee"
+
+msgid "Set path manually"
+msgstr "Establecer ruta manualmente"
+
+msgid "Type the path (Ex. C:\\Program Files\\MusicBee\\MusicBee.exe)"
+msgstr "Escribe la ruta (Ej. C:\\Program Files\\MusicBee\\MusicBee.exe)"
+
+msgid "Select MusicBee executable"
+msgstr "Seleccionar ejecutable de MusicBee"
+
+msgid "Path saved successfully"
+msgstr "Ruta guardada exitosamente"
+
+msgid "Set path"
+msgstr "Establecer ruta"
+
+msgid "Set path of MusicBee (Ex. C:\\Program Files\\MusicBee\\MusicBee.exe)"
+msgstr "Establecer ruta de MusicBee (Ej. C:\\Program Files\\MusicBee\\MusicBee.exe)"
+
+msgid "Save Path: {}..."
+msgstr "Guardar Ruta: {}..."
+
+msgid "Save path of MusicBee"
+msgstr "Guardar ruta de MusicBee"
+
+msgid "Path of MusicBee not found"
+msgstr "Ruta de MusicBee no encontrada"
+
+msgid "Press enter to configure MusicBee path"
+msgstr "Presiona enter para configurar la ruta de MusicBee"
+
+msgid "Play/Pause"
+msgstr "Reproducir/Pausar"
+
+msgid "Play/Pause song"
+msgstr "Reproducir/Pausar canción"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Next song"
+msgstr "Siguiente canción"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Previous song"
+msgstr "Canción anterior"
+
+msgid "Stop"
+msgstr "Detener"
+
+msgid "Stop song"
+msgstr "Detener canción"
+
+msgid "No songs found"
+msgstr "No se encontraron canciones"
+
+msgid "Try a different search term"
+msgstr "Intenta con otro término de búsqueda"
+
+# Playback context options
+msgid "Play context: Full Library"
+msgstr "Reproducir contexto: Biblioteca Completa"
+
+msgid "Play '{}' then continue with your entire library shuffled"
+msgstr "Reproduce '{}' y luego continúa con toda tu biblioteca mezclada"
+
+msgid "Play context: Album"
+msgstr "Reproducir contexto: Álbum"
+
+msgid "Play the entire album '{}' (ordered)"
+msgstr "Reproduce todo el álbum '{}' (ordenado)"
+
+msgid "Play the entire album (ordered)"
+msgstr "Reproduce todo el álbum (ordenado)"
+
+msgid "Play context: Artist"
+msgstr "Reproducir contexto: Artista"
+
+msgid "Play '{}' then continue with songs from {}"
+msgstr "Reproduce '{}' y luego continúa con canciones de {}"
+
+msgid "Single song only"
+msgstr "Solo esta canción"
+
+msgid "Clear queue and play only this song"
+msgstr "Limpia la cola y reproduce solo esta canción"
+
+# Shuffle feature
+msgid "Shuffle: ON"
+msgstr "Aleatorio: ON"
+
+msgid "Shuffle: OFF"
+msgstr "Aleatorio: OFF"
+
+msgid "Settings Updated"
+msgstr "Configuración actualizada"
+
+msgid "Shuffle ON"
+msgstr "Aleatorio Activado"
+
+msgid "Shuffle OFF"
+msgstr "Aleatorio Desactivado"
+
+msgid "Randomize playback order"
+msgstr "Orden de reproducción aleatorio"
+
+msgid "Play in track/alphabetical order"
+msgstr "Reproducción en orden de pista/alfabético"
+
+# Dynamic Shuffle Subtitles
+msgid "Play album '{}' (Randomized)"
+msgstr "Reproducir álbum '{}' (Aleatorio)"
+
+msgid "Play album '{}' (Ordered)"
+msgstr "Reproducir álbum '{}' (Ordenado)"
+
+msgid "Play '{}' then random songs from {}"
+msgstr "Reproducir '{}' luego canciones aleatorias de {}"
+
+msgid "Play '{}' then aligned songs from {}"
+msgstr "Reproducir '{}' luego canciones ordenadas de {}"
+
+msgid "Play '{}' then random songs from Library"
+msgstr "Reproducir '{}' luego biblioteca aleatoria"
+
+msgid "Play '{}' then aligned songs from Library"
+msgstr "Reproducir '{}' luego biblioteca ordenada"
+
+# Separate components for dynamic string building
+msgid "Shuffle"
+msgstr "Aleatorio"
+
+msgid "ON"
+msgstr "ACTIVADO"
+
+msgid "OFF"
+msgstr "DESACTIVADO"

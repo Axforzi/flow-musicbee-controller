@@ -1,0 +1,14 @@
+.venv
+.env
+env
+img_cache
+lib
+debug.log
+config.json
+context.json
+prototype.py
+pyproject.toml
+test_show_options.py
+uv.lock
+
+__pycache__/
