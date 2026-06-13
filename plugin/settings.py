@@ -12,7 +12,7 @@ PROG_DIR = basedir
 icon_path = os.path.join(basedir, "assets/favicon.png")
 
 
-DEFAULT_ICON = os.path.join(basedir, "assets", "music.png")
+DEFAULT_ICON = os.path.join(basedir, "assets", "song.png")
 PLAY_ICON = os.path.join(basedir, "assets", "play.png")
 NEXT_ICON = os.path.join(basedir, "assets", "next.png")
 PREVIOUS_ICON = os.path.join(basedir, "assets", "previous.png")
