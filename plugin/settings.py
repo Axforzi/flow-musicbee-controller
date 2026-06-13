@@ -58,6 +58,41 @@ with open(settings_file, 'r') as f:
     XML_PATH = settings.get("xml_path", "")
     SHUFFLE_ENABLED = settings.get("shuffle_enabled", True)
 
+# Auto-detect standard installations if path is empty
+if not MB_PATH:
+    common_paths = [
+        r"C:\Program Files (x86)\MusicBee\MusicBee.exe",
+        r"C:\Program Files\MusicBee\MusicBee.exe",
+    ]
+    for path in common_paths:
+        if os.path.exists(path):
+            MB_PATH = path
+            # Auto-detect XML path
+            possible_xmls = [
+                os.path.join(os.path.dirname(MB_PATH), "Library", "iTunes Music Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\iTunes Music Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBee Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBeeMusicLibrary.xml"),
+            ]
+            XML_PATH = possible_xmls[0]
+            for p in possible_xmls:
+                if os.path.exists(p):
+                    XML_PATH = p
+                    break
+            
+            # Save detected paths to config.json
+            try:
+                with open(settings_file, 'w') as f:
+                    json.dump({
+                        "musicbee_path": MB_PATH,
+                        "xml_path": XML_PATH,
+                        "shuffle_enabled": SHUFFLE_ENABLED
+                    }, f, indent=4)
+            except:
+                pass
+            break
+    SHUFFLE_ENABLED = settings.get("shuffle_enabled", True)
+
 
 # Add lib directory to path
 lib_path = basedir / "lib"

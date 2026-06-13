@@ -16,7 +16,7 @@ from plugin.extensions import _l
 
 from plugin.settings import icon_path, ActionKeyword
 from plugin.utils import save_config, musicbee_command, parse_musicbee_xml
-from plugin.settings import MB_PATH, PROG_DIR, PLAY_ICON, NEXT_ICON, PREVIOUS_ICON, SHUFFLE_ICON, SHUFFLE_ON_ICON, STOP_ICON, SONG_ICON, ARTIST_ICON, ALBUM_ICON, LIBRARY_ICON
+from plugin.settings import MB_PATH, XML_PATH, PROG_DIR, PLAY_ICON, NEXT_ICON, PREVIOUS_ICON, SHUFFLE_ICON, SHUFFLE_ON_ICON, STOP_ICON, SONG_ICON, ARTIST_ICON, ALBUM_ICON, LIBRARY_ICON
 import json
 import logging
 import uuid
@@ -207,6 +207,14 @@ class Main(FlowLauncher):
                     "dontHideAfterAction": True
                 }
               }]
+
+        # Check if Library XML file exists
+        if not XML_PATH or not os.path.exists(XML_PATH):
+            return [{
+                "Title": _l("⚠️ MusicBee Library XML not found"),
+                "SubTitle": _l("Preferences > Library > Enable 'Export library in iTunes format' in MusicBee"),
+                "IcoPath": icon_path
+            }]
          
         # Handle context options display - detect by the disc emoji prefix
         if clean_query.startswith("💿"):
