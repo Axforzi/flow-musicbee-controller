@@ -33,14 +33,18 @@ with open(base_plugin_settings, 'r') as f:
     settings = json.load(f)
     plugin_id = settings["ID"]
     plugin_name = settings["Name"]
+    default_action_keyword = settings.get("ActionKeyword", "mb")
 
 # GET ACTION KEYWORD
 plugins_settings_flowlauncher = os.path.join(basedir.parent.parent, "Settings", "settings.json")
-with open(plugins_settings_flowlauncher, 'r') as f:
-    settings = json.load(f)
-    settings = settings["PluginSettings"]["Plugins"]
-    find_plugin = {key: value for key, value in settings.items() if key == plugin_id}
-    ActionKeyword = find_plugin[plugin_id]["ActionKeywords"][0]
+try:
+    with open(plugins_settings_flowlauncher, 'r') as f:
+        flow_settings = json.load(f)
+        plugins_config = flow_settings["PluginSettings"]["Plugins"]
+        find_plugin = {key: value for key, value in plugins_config.items() if key == plugin_id}
+        ActionKeyword = find_plugin[plugin_id]["ActionKeywords"][0]
+except Exception:
+    ActionKeyword = default_action_keyword
 
 # GET SETTINGS
 settings_file = os.path.join(basedir, "config.json")

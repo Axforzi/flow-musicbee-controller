@@ -15,6 +15,10 @@ import logging
 
 # --- HELPER FUNCTIONS ---
 
+_xml_cache_data = None
+_xml_cache_mtime = 0
+_no_cover_cache = set()
+
 def get_clean_path(location_url):
     """Clean XML URL to Windows path"""
     if not location_url:
@@ -26,12 +30,23 @@ def get_clean_path(location_url):
     return path.replace('/', '\\')
 
 def get_library_data():
-    """Read library data from XML file"""
+    """Read library data from XML file (cached)"""
+    global _xml_cache_data, _xml_cache_mtime
     if not os.path.exists(XML_PATH):
         return []
-    tree = ET.parse(XML_PATH)
-    root = tree.getroot()
-    return root.findall("./dict/dict/dict")
+    try:
+        mtime = os.path.getmtime(XML_PATH)
+        if _xml_cache_data is not None and _xml_cache_mtime == mtime:
+            return _xml_cache_data
+        
+        tree = ET.parse(XML_PATH)
+        root = tree.getroot()
+        _xml_cache_data = root.findall("./dict/dict/dict")
+        _xml_cache_mtime = mtime
+        return _xml_cache_data
+    except Exception as e:
+        logging.error(f"Error parsing XML library: {e}")
+        return []
 
 def create_temp_playlist(file_paths):
     """Create temporary M3U playlist file"""
@@ -58,7 +73,19 @@ def save_config(musicbee_path=None, toggle_shuffle=None):
     with open(settings_file, 'w') as f:
         if musicbee_path:
             data["musicbee_path"] = musicbee_path
-            data["xml_path"] = os.path.join(os.path.dirname(musicbee_path), "Library", "iTunes Music Library.xml")
+            # Búsqueda inteligente de ruta de biblioteca XML
+            possible_paths = [
+                os.path.join(os.path.dirname(musicbee_path), "Library", "iTunes Music Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\iTunes Music Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBee Library.xml"),
+                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBeeMusicLibrary.xml"),
+            ]
+            xml_path = possible_paths[0]  # default fallback
+            for p in possible_paths:
+                if os.path.exists(p):
+                    xml_path = p
+                    break
+            data["xml_path"] = xml_path
         
         if toggle_shuffle is not None:
             data["shuffle_enabled"] = toggle_shuffle
@@ -236,11 +263,15 @@ def execute_mode(mode, target_path, target_artist, target_album):
         subprocess.Popen([MB_PATH, "/Play", target_path])
 
 def get_cover_art(audio_path):
+    global _no_cover_cache
     path_hash = hashlib.md5(audio_path.encode('utf-8')).hexdigest()
     image_save_path = os.path.abspath(os.path.join(CACHE_DIR, f"{path_hash}.jpg"))
 
     if os.path.exists(image_save_path):
         return image_save_path
+
+    if audio_path in _no_cover_cache:
+        return DEFAULT_ICON
 
     try:
         audio = File(audio_path)
@@ -260,6 +291,7 @@ def get_cover_art(audio_path):
     except Exception:
         pass
 
+    _no_cover_cache.add(audio_path)
     return DEFAULT_ICON
 
 

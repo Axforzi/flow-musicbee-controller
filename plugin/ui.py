@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+Flow Launcher MusicBee Controller Plugin
+========================================
+Handles user input queries and interacts with MusicBee helper functions.
+Optimized with XML caching to reduce latency during real-time search typing.
+"""
+
 import copy, os
 from typing import List
 
