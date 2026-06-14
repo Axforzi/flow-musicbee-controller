@@ -54,22 +54,52 @@ class Main(FlowLauncher):
         FlowLauncherAPI.change_query(ActionKeyword + " setpath ", False)
     
     def browse_file(self):
-        import tkinter as tk
-        from tkinter import filedialog
+        import ctypes
+        from ctypes import wintypes
+
+        class OPENFILENAMEW(ctypes.Structure):
+            _fields_ = [
+                ("lStructSize", wintypes.DWORD),
+                ("hwndOwner", wintypes.HWND),
+                ("hInstance", wintypes.HINSTANCE),
+                ("lpstrFilter", ctypes.c_wchar_p),
+                ("lpstrCustomFilter", ctypes.c_wchar_p),
+                ("nMaxCustFilter", wintypes.DWORD),
+                ("nFilterIndex", wintypes.DWORD),
+                ("lpstrFile", ctypes.c_wchar_p),
+                ("nMaxFile", wintypes.DWORD),
+                ("lpstrFileTitle", ctypes.c_wchar_p),
+                ("nMaxFileTitle", wintypes.DWORD),
+                ("lpstrInitialDir", ctypes.c_wchar_p),
+                ("lpstrTitle", ctypes.c_wchar_p),
+                ("flags", wintypes.DWORD),
+                ("nFileOffset", wintypes.WORD),
+                ("nFileExtension", wintypes.WORD),
+                ("lpstrDefExt", ctypes.c_wchar_p),
+                ("lCustData", wintypes.LPARAM),
+                ("lpfnHook", ctypes.c_void_p),
+                ("lpTemplateName", ctypes.c_wchar_p),
+                ("pvReserved", wintypes.LPVOID),
+                ("dwReserved", wintypes.DWORD),
+                ("flagsEx", wintypes.DWORD),
+            ]
+
+        buffer_size = 260
+        file_buffer = ctypes.create_unicode_buffer(buffer_size)
         
-        root = tk.Tk()
-        root.withdraw()  # Hide the main window
-        root.attributes('-topmost', True)  # Bring dialog to front
-        
-        file_path = filedialog.askopenfilename(
-            title=_l("Select MusicBee executable"),
-            filetypes=[("Executable files", "*.exe"), ("All files", "*.*")],
-            initialdir="C:\\Program Files"
-        )
-        
-        root.destroy()
-        
-        if file_path:
+        ofn = OPENFILENAMEW()
+        ofn.lStructSize = ctypes.sizeof(OPENFILENAMEW)
+        ofn.hwndOwner = None
+        ofn.lpstrFilter = "Executable files (*.exe)\0*.exe\0All files (*.*)\0*.*\0"
+        ofn.lpstrFile = ctypes.cast(file_buffer, ctypes.c_wchar_p)
+        ofn.nMaxFile = buffer_size
+        ofn.lpstrInitialDir = "C:\\Program Files"
+        ofn.lpstrTitle = _l("Select MusicBee executable")
+        ofn.flags = 0x00080000 | 0x00000800 | 0x00000008 # OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR
+
+        comdlg32 = ctypes.windll.comdlg32
+        if comdlg32.GetOpenFileNameW(ctypes.byref(ofn)):
+            file_path = file_buffer.value
             save_config(file_path)
             FlowLauncherAPI.show_msg(
                 _l("Path saved successfully"),

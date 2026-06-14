@@ -2,12 +2,13 @@
 import os, sys
 import json
 from pathlib import Path
-
-from dotenv import load_dotenv
-
 setting_pyfile = Path(__file__).resolve()
 pludir = setting_pyfile.parent
 basedir = pludir.parent
+sys.path.insert(0, str(basedir / "lib"))
+
+from dotenv import load_dotenv
+
 PROG_DIR = basedir
 icon_path = os.path.join(basedir, "assets/favicon.png")
 
@@ -94,9 +95,6 @@ if not MB_PATH:
     SHUFFLE_ENABLED = settings.get("shuffle_enabled", True)
 
 
-# Add lib directory to path
-lib_path = basedir / "lib"
-sys.path.insert(0, str(lib_path))
 
 dotenv_path = basedir / ".env"
 if dotenv_path.exists():
@@ -130,7 +128,7 @@ except:
 
 # the information of package
 __package_name__ = "MusicBee Quick Commands"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __short_description__ = "Play music from MusicBee"
 GITHUB_USERNAME = "Axforzi"
 
