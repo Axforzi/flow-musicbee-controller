@@ -65,6 +65,19 @@ if not MB_PATH:
         r"C:\Program Files (x86)\MusicBee\MusicBee.exe",
         r"C:\Program Files\MusicBee\MusicBee.exe",
     ]
+    # Check for MS Store version
+    import subprocess
+    try:
+        cmd = ["powershell", "-NoProfile", "-Command", "Get-AppxPackage -Name *MusicBee* | Select-Object -ExpandProperty InstallLocation"]
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, creationflags=subprocess.CREATE_NO_WINDOW)
+        if result.returncode == 0 and result.stdout.strip():
+            store_install_dir = result.stdout.strip()
+            store_exe_path = os.path.join(store_install_dir, "win32", "MusicBee.exe")
+            if os.path.exists(store_exe_path):
+                common_paths.insert(0, store_exe_path)
+    except:
+        pass
+
     for path in common_paths:
         if os.path.exists(path):
             MB_PATH = path
@@ -128,7 +141,7 @@ except:
 
 # the information of package
 __package_name__ = "MusicBee Quick Commands"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __short_description__ = "Play music from MusicBee"
 GITHUB_USERNAME = "Axforzi"
 

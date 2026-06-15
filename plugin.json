@@ -4,7 +4,7 @@
     "Name": "MusicBee Controller",
     "Description": "Instantly search and control MusicBee.",
     "Author": "Maikel García",
-    "Version": "1.0.2",
+    "Version": "1.0.3",
     "Language": "python",
     "Website": "https://github.com/Axforzi/flow-musicbee-controller",
     "IcoPath": "assets/favicon.png",
