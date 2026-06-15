@@ -128,7 +128,7 @@ except:
 
 # the information of package
 __package_name__ = "MusicBee Quick Commands"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __short_description__ = "Play music from MusicBee"
 GITHUB_USERNAME = "Axforzi"
 

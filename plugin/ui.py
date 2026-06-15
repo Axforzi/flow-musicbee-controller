@@ -108,6 +108,65 @@ class Main(FlowLauncher):
 
     def set_path(self, param: str): return save_config(param)
 
+    def change_set_xml_path(self): 
+        FlowLauncherAPI.change_query(ActionKeyword + " setxml ", False)
+
+    def set_xml_path(self, param: str): 
+        save_config(xml_path=param)
+
+    def browse_xml_file(self):
+        import ctypes
+        from ctypes import wintypes
+
+        class OPENFILENAMEW(ctypes.Structure):
+            _fields_ = [
+                ("lStructSize", wintypes.DWORD),
+                ("hwndOwner", wintypes.HWND),
+                ("hInstance", wintypes.HINSTANCE),
+                ("lpstrFilter", ctypes.c_wchar_p),
+                ("lpstrCustomFilter", ctypes.c_wchar_p),
+                ("nMaxCustFilter", wintypes.DWORD),
+                ("nFilterIndex", wintypes.DWORD),
+                ("lpstrFile", ctypes.c_wchar_p),
+                ("nMaxFile", wintypes.DWORD),
+                ("lpstrFileTitle", ctypes.c_wchar_p),
+                ("nMaxFileTitle", wintypes.DWORD),
+                ("lpstrInitialDir", ctypes.c_wchar_p),
+                ("lpstrTitle", ctypes.c_wchar_p),
+                ("flags", wintypes.DWORD),
+                ("nFileOffset", wintypes.WORD),
+                ("nFileExtension", wintypes.WORD),
+                ("lpstrDefExt", ctypes.c_wchar_p),
+                ("lCustData", wintypes.LPARAM),
+                ("lpfnHook", ctypes.c_void_p),
+                ("lpTemplateName", ctypes.c_wchar_p),
+                ("pvReserved", wintypes.LPVOID),
+                ("dwReserved", wintypes.DWORD),
+                ("flagsEx", wintypes.DWORD),
+            ]
+
+        buffer_size = 260
+        file_buffer = ctypes.create_unicode_buffer(buffer_size)
+        
+        ofn = OPENFILENAMEW()
+        ofn.lStructSize = ctypes.sizeof(OPENFILENAMEW)
+        ofn.hwndOwner = None
+        ofn.lpstrFilter = "XML files (*.xml)\0*.xml\0All files (*.*)\0*.*\0"
+        ofn.lpstrFile = ctypes.cast(file_buffer, ctypes.c_wchar_p)
+        ofn.nMaxFile = buffer_size
+        ofn.lpstrInitialDir = "C:\\"
+        ofn.lpstrTitle = _l("Select iTunes Music Library XML")
+        ofn.flags = 0x00080000 | 0x00000800 | 0x00000008 # OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR
+
+        comdlg32 = ctypes.windll.comdlg32
+        if comdlg32.GetOpenFileNameW(ctypes.byref(ofn)):
+            file_path = file_buffer.value
+            save_config(xml_path=file_path)
+            FlowLauncherAPI.show_msg(
+                _l("XML Path saved successfully"),
+                file_path
+            )
+
     def toggle_shuffle(self):
         """Toggle shuffle state and reload"""
         # Read current state first to be safe
@@ -187,6 +246,41 @@ class Main(FlowLauncher):
                     "dontHideAfterAction": False
                 }
             }]
+        # New XML path
+        if clean_query.startswith("setxml"):
+            new_xml = param[6:].strip()
+
+            if not new_xml:
+                 return [{
+                     "Title": _l("Browse for iTunes Music Library XML"),
+                     "SubTitle": _l("Open file browser to select the XML file"),
+                     "IcoPath": icon_path,
+                     "JsonRPCAction": {
+                         "method": "browse_xml_file",
+                         "parameters": [],
+                         "dontHideAfterAction": False
+                     }
+                 }, {
+                     "Title": _l("Set XML path manually"),
+                     "SubTitle": _l("Type the XML path"),
+                     "IcoPath": icon_path,
+                     "JsonRPCAction": {
+                         "method": "change_set_xml_path",
+                         "parameters": [],
+                         "dontHideAfterAction": False
+                     }
+                 }]
+
+            return [{
+                "Title": _l("Save XML Path: {}...").format(new_xml[:15]),
+                "SubTitle": _l("Save path of MusicBee XML Library"),
+                "IcoPath": icon_path,
+                "JsonRPCAction": {
+                    "method": "set_xml_path",
+                    "parameters": [new_xml],
+                    "dontHideAfterAction": False
+                }
+            }]
         
         # Quick Commands (Symbols)
         # > or >> : Next
@@ -242,8 +336,26 @@ class Main(FlowLauncher):
         if not XML_PATH or not os.path.exists(XML_PATH):
             return [{
                 "Title": _l("⚠️ MusicBee Library XML not found"),
-                "SubTitle": _l("Preferences > Library > Enable 'Export library in iTunes format' in MusicBee"),
+                "SubTitle": _l("Export it in MusicBee (Preferences > Library > Enable 'Export library in iTunes format')"),
                 "IcoPath": icon_path
+            }, {
+                "Title": _l("Browse for iTunes Music Library XML"),
+                "SubTitle": _l("Open file browser to select the exported iTunes XML library file"),
+                "IcoPath": icon_path,
+                "JsonRPCAction": {
+                    "method": "browse_xml_file",
+                    "parameters": [],
+                    "dontHideAfterAction": False
+                }
+            }, {
+                "Title": _l("Set XML path manually"),
+                "SubTitle": _l("Type the XML path (Ex. C:\\Users\\...\\iTunes Music Library.xml)"),
+                "IcoPath": icon_path,
+                "JsonRPCAction": {
+                    "method": "change_set_xml_path",
+                    "parameters": [],
+                    "dontHideAfterAction": False
+                }
             }]
          
         # Handle context options display - detect by the disc emoji prefix

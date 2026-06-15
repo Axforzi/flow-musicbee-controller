@@ -232,3 +232,29 @@ msgstr "Mostrar MusicBee"
 
 msgid "Bring MusicBee to front"
 msgstr "Traer MusicBee al frente"
+
+# XML configuration
+msgid "Select iTunes Music Library XML"
+msgstr "Seleccionar XML de la biblioteca de MusicBee"
+
+msgid "XML Path saved successfully"
+msgstr "Ruta del XML guardada exitosamente"
+
+msgid "Browse for iTunes Music Library XML"
+msgstr "Buscar iTunes Music Library.xml"
+
+msgid "Open file browser to select the exported iTunes XML library file"
+msgstr "Abrir explorador de archivos para seleccionar el archivo XML iTunes exportado"
+
+msgid "Export it in MusicBee (Preferences > Library > Enable 'Export library in iTunes format')"
+msgstr "Expórtalo en MusicBee (Preferencias > Biblioteca > Activar 'Exportar biblioteca en formato iTunes')"
+
+msgid "Type the XML path (Ex. C:\\Users\\...\\iTunes Music Library.xml)"
+msgstr "Escribe la ruta del XML (Ej. C:\\Usuarios\\...\\iTunes Music Library.xml)"
+
+msgid "Save path of MusicBee XML Library"
+msgstr "Guardar ruta del XML de la biblioteca de MusicBee"
+
+msgid "Save XML Path: {}..."
+msgstr "Guardar Ruta de XML: {}..."
+

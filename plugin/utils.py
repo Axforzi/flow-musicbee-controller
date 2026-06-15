@@ -103,7 +103,7 @@ def create_temp_playlist(file_paths):
 
 # --- MAIN FUNCTIONS ---
 
-def save_config(musicbee_path=None, toggle_shuffle=None):
+def save_config(musicbee_path=None, xml_path=None, toggle_shuffle=None):
     # Load existing config to preserve other settings
     data = {"musicbee_path": "", "xml_path": "", "shuffle_enabled": True}
     if os.path.exists(settings_file):
@@ -117,17 +117,21 @@ def save_config(musicbee_path=None, toggle_shuffle=None):
         if musicbee_path:
             data["musicbee_path"] = musicbee_path
             # Búsqueda inteligente de ruta de biblioteca XML
-            possible_paths = [
-                os.path.join(os.path.dirname(musicbee_path), "Library", "iTunes Music Library.xml"),
-                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\iTunes Music Library.xml"),
-                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBee Library.xml"),
-                os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBeeMusicLibrary.xml"),
-            ]
-            xml_path = possible_paths[0]  # default fallback
-            for p in possible_paths:
-                if os.path.exists(p):
-                    xml_path = p
-                    break
+            if not data.get("xml_path") and not xml_path:
+                possible_paths = [
+                    os.path.join(os.path.dirname(musicbee_path), "Library", "iTunes Music Library.xml"),
+                    os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\iTunes Music Library.xml"),
+                    os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBee Library.xml"),
+                    os.path.expandvars(r"%USERPROFILE%\Music\MusicBee\MusicBeeMusicLibrary.xml"),
+                ]
+                detected_xml = possible_paths[0]  # default fallback
+                for p in possible_paths:
+                    if os.path.exists(p):
+                        detected_xml = p
+                        break
+                data["xml_path"] = detected_xml
+        
+        if xml_path:
             data["xml_path"] = xml_path
         
         if toggle_shuffle is not None:
