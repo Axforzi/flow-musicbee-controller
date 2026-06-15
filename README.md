@@ -22,7 +22,8 @@ Optimized with advanced XML caching and cover art miss-caching for near-zero sea
 * **iTunes XML Export enabled** in MusicBee:
   1. Open MusicBee.
   2. Go to `Edit` > `Preferences` > `Library`.
-  3. Enable **"export library in iTunes format"**.
+  3. Enable **"export library in iTunes format"** (in Spanish: *"guardar una copia de las etiquetas de la biblioteca como archivo xml de iTunes"* o *"exportar biblioteca en formato iTunes"*).
+
 
 ---
 
@@ -31,14 +32,14 @@ Optimized with advanced XML caching and cover art miss-caching for near-zero sea
 Interact with the plugin using the default action keyword **`mb`**.
 
 ### 1. Initial Setup
-The plugin needs to know where your MusicBee executable is:
-1. Open Flow Launcher.
-2. Type:
+The plugin needs to know where your MusicBee executable and library XML are:
+1. Open Flow Launcher and type `mb setpath`.
+2. Select **"Browse for MusicBee.exe"** to open a file browser and locate your `MusicBee.exe` (usually in `C:\Program Files\MusicBee\MusicBee.exe`), or type it manually.
+3. The plugin will automatically try to detect your exported library XML file from default locations.
+4. **If auto-detection fails (e.g., MS Store version):** The plugin will show options to **"Browse for iTunes Music Library XML"** or type it manually using the command:
    ```cmd
-   mb setpath
+   mb setxml [path]
    ```
-3. Select **"Browse for MusicBee.exe"** to open a file browser and locate your `MusicBee.exe` (usually in `C:\Program Files\MusicBee\MusicBee.exe`), or type it manually.
-4. The plugin will automatically detect your exported library XML file from default locations (like `%USERPROFILE%\Music\MusicBee\`).
 
 ### 2. Control Playback via Symbols/Shortcuts
 Open Flow Launcher and type the following short symbols to trigger instant controls:
